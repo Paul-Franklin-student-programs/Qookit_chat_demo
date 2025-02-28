@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.chat_interface_si">
     <application
         android:label="chat_interface_si"
         android:name="${applicationName}"
