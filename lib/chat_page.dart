@@ -45,6 +45,18 @@ class _ChatPageState extends State<ChatPage> {
       "redistribute, ensuring a tender, flavorful bite. For extra flavor, top with a pat of butter or a drizzle"
       "of olive oil before serving.";
 
+  final stringHistory = "CHAT HISTORY\n\n"
+      "💬 What are the healthier fruits?\n\n"
+      "💬 Can I make hamburgers on the stove?\n\n"
+      "💬 What fish are the best sources of protein?\n\n"
+      "💬 Is it healthy to eat burgers at Wendys or should I make a salad?\n\n"
+      "💬 Why are raisins so high in calories? Are dried apricots lower in calories?\n\n"
+      "💬 What is a good shake to make in the blender for losing weight?\n\n"
+      "💬 Why are grocery store prices so high? Is Stop and Shop cheap?\n\n"
+      "💬 Are Vitamin D supplements good for you? Better than multivitamins?\n\n"
+      "💬 What is the healthiest topping to put on pizza? How come?\n\n"
+      "💬 Why does everything seem to taste like chicken? Is that a bad thing?";
+
   // Toggle panel expansion
   void _toggleExpand() {
     setState(() {
@@ -114,11 +126,11 @@ class _ChatPageState extends State<ChatPage> {
             user: _user,
             theme: DefaultChatTheme(
                 inputBackgroundColor: Color(0xFFf3f3f3),
-                // Input field background
+
                 inputTextColor: Colors.black,
-                // Input text color
+
                 primaryColor: Color(0xFFf3f3f3),
-                // Send button color
+
                 secondaryColor: Colors.white,
                 sentMessageBodyTextStyle: TextStyle(
                   color: Colors.black, // Ensures user message text is black
@@ -132,37 +144,53 @@ class _ChatPageState extends State<ChatPage> {
             left: 20,
             child: AnimatedContainer(
               duration: Duration(milliseconds: 300),
-              width: _isExpanded ? 650 : 80,
-              height: _isExpanded ? 425 : 60,
+              width: _isExpanded ? 245 : 67,
+              height: _isExpanded ? 700 : 50,
               constraints: BoxConstraints(
                 maxHeight: 450,
-                minHeight: 60,
+                minHeight: 55,
               ),
               decoration: BoxDecoration(
                 color: Color(0xFFF3F6F7),
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 5)],
               ),
-              child: _isExpanded
-                  ? Column(
-                  mainAxisSize: MainAxisSize.min,// If expanded, show this:
-                  children: [
-                    ListTile(
-                        title: Text("Recent Chats",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+              clipBehavior: Clip.antiAlias,  // ✅ Prevents rendering issues
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 300),
+
+                child: _isExpanded
+                    ?
+                SingleChildScrollView(
+                  key: ValueKey<bool>(true),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        contentPadding: EdgeInsets.zero, //
+                        title: Align(
+                          alignment: Alignment.topLeft, //
+                          child: Text(
+                            stringHistory,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
                         trailing: IconButton(
                           icon: Icon(Icons.close),
-                          onPressed: _toggleExpand
-                        )),
-                  ]
-              )
-                  :
-              IconButton( // If collapsed, show this:
-                icon: Icon(Icons.history, size: 40),
-                onPressed: _toggleExpand,
+                          onPressed: _toggleExpand,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+                    : IconButton(
+                  key: ValueKey<bool>(false),
+                  icon: Icon(Icons.history, size: 40),
+                  onPressed: _toggleExpand,
+                ),
               ),
             ),
           ),
+
 
         ]));
   }
